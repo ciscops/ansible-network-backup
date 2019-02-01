@@ -1,0 +1,8 @@
+---
+- name: Backup the config
+  asa_config:
+    backup: yes
+  register: config_output
+
+- set_fact:
+    temp_backup_file: "{{ config_output.backup_path }}"

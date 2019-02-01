@@ -1,0 +1,15 @@
+---
+- name: Backup the config
+  nxos_config:
+    backup: yes
+  register: config_output
+
+- set_fact:
+    temp_backup_file: "{{ config_output.backup_path }}"
+
+- name: Delete the Time from the temp file
+  replace:
+    path: "{{ temp_backup_file }}"
+    regexp: '^!Time.*$'
+  changed_when: False
+  delegate_to: localhost

@@ -1,0 +1,22 @@
+---
+- name: enable config archive
+  ios_config:
+    lines:
+      - path flash:archive_config
+      - maximum 14
+    #  - time-period 10
+    parents: archive
+
+- name: archive config
+  ios_command:
+    commands:
+      - archive config
+
+# - name: list archives
+#   ios_command:
+#      commands:
+#        - show archive | i Most Recent
+#   register: archive
+#
+# - debug:
+#     msg: "{{archive}}"

@@ -1,0 +1,123 @@
+---
+- set_fact:
+    network_backup_dir: "{{ playbook_dir }}/backups"
+  when: network_backup_dir is not defined
+
+- set_fact:
+    net_backup_filename: "{{ inventory_hostname }}.cfg"
+    net_backup_file: "{{ network_backup_dir }}/{{ inventory_hostname }}.cfg"
+
+- block:
+  - name: Clone the backup repo
+    git:
+      repo: "{{ network_backup_repository }}"
+      dest: "{{ network_backup_dir }}"
+      accept_hostkey: yes
+      force: yes
+    register: clone_result
+    delegate_to: localhost
+    run_once: true
+
+  - debug: msg="{{ clone_result.msg }} Overwriting."
+    when: clone_result is defined and clone_result.changed
+    run_once: true
+  when: network_backup_repository is defined
+
+- include_tasks: "{{ role_path }}/tasks/{{ ansible_network_os }}-backup-config.yml"
+
+- name: Copy the temp to the destination
+  copy:
+    src: "{{ temp_backup_file }}"
+    dest: "{{ net_backup_file }}"
+  register: copy_result
+  delegate_to: localhost
+
+- name: Delete the temp file
+  file:
+    path: "{{ temp_backup_file }}"
+    state: absent
+  changed_when: False
+  delegate_to: localhost
+
+# - block:
+#   - name: Check git status of the config file
+#     shell: "git status -- {{ net_backup_filename }}"
+#     args:
+#       chdir: "{{ network_backup_dir }}"
+#     register: status_results
+#     changed_when: False
+#     ignore_errors: yes
+#     delegate_to: localhost
+#
+#   - debug: var=status_results
+#
+#   - set_fact:
+#       git_regex: "^\\s+(([^:]+):\\s+)?({{ net_backup_filename }})"
+#
+#   - set_fact:
+#       status_output: "{{ status_results.stdout_lines | select('search', net_backup_filename) | join | regex_replace('^\\s+', '') }}"
+#
+#   - set_fact:
+#       file_status: "{{ status_output.split(':')[0] }}"
+#
+#   # The results of these macinations will either be a status, the filename itself,
+#   # or an empty string.  The status is the status, the filename indicates that the
+#   # file is not being tracked, and an empty string indicates that the file did not
+#   # change.
+#
+#   - debug: var=file_status
+#
+#   - name: Add new backup to the repossitory
+#     shell: "git add {{ net_backup_filename }}"
+#     args:
+#       chdir: "{{ network_backup_dir }}"
+#     delegate_to: localhost
+#     when: file_status == net_backup_filename
+#
+#   - block:
+#       - name: Get a diff of the file
+#         shell: "git diff {{ net_backup_filename }}"
+#         args:
+#           chdir: "{{ network_backup_dir }}"
+#         register: diff_results
+#         delegate_to: localhost
+#
+#       - debug: msg="{{ diff_results.stdout }}"
+#     when: file_status == 'modified'
+#   when: copy_result.changed
+
+- block:
+  - name: Add any new backups to the repossitory
+    shell: "git add *.cfg"
+    args:
+      chdir: "{{ network_backup_dir }}"
+    delegate_to: localhost
+    changed_when: False
+    run_once: true
+
+  - name: Get the status of the repository
+    shell: "git status"
+    args:
+      chdir: "{{ network_backup_dir }}"
+    register: status_results
+    changed_when: False
+    ignore_errors: yes
+    delegate_to: localhost
+    run_once: true
+
+  - name: Commit the changes
+    shell: "git commit -am 'Changed'"
+    args:
+      chdir: "{{ network_backup_dir }}"
+    when: status_results.stdout is search('Changes')
+    delegate_to: localhost
+    run_once: true
+
+  - name: Push the changes
+    shell: "git push origin master"
+    args:
+      chdir: "{{ network_backup_dir }}"
+    run_once: true
+    when: status_results.stdout is search('Changes')
+    delegate_to: localhost
+  when: network_backup_repository is defined
