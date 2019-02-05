@@ -1,2 +1,4 @@
 ---
-# defaults file for net-backup-config
+network_backup_dir: "{{ playbook_dir }}/backups"
+net_backup_filename: "{{ inventory_hostname }}.cfg"
+net_backup_file: "{{ network_backup_dir }}/{{ inventory_hostname }}.cfg"

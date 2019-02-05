@@ -1,12 +1,4 @@
 ---
-- set_fact:
-    network_backup_dir: "{{ playbook_dir }}/backups"
-  when: network_backup_dir is not defined
-
-- set_fact:
-    net_backup_filename: "{{ inventory_hostname }}.cfg"
-    net_backup_file: "{{ network_backup_dir }}/{{ inventory_hostname }}.cfg"
-
 - name: Clone the backup repo
   git:
     repo: "{{ network_backup_repository }}"
