@@ -1,5 +1,4 @@
-#ansible-network-backup
-
+# ansible-network-backup
 
 This role backs up the configuration of a network device into a git repository.
 
@@ -7,7 +6,7 @@ The file is backed up to the directory specified in `network_backup_dir`.  A git
 `network_backup_repository` is specified.
 
 
-##Requirements
+## Requirements
 
 
 Currently supports:
@@ -15,17 +14,17 @@ Currently supports:
 - asa
 - nxos
 
-##Role Variables
+## Role Variables
 
 
 - `network_backup_repository`: The git repository that will be use to store the backups.
 - `network_backup_dir`: The directory where the backups will be placed. Default: `"{{ playbook_dir }}/backups"`
 
-##Dependencies
+## Dependencies
 
 None
 
-##Cloning
+## Cloning
 
 Adding without the `ansible-` prefix:
 
@@ -35,7 +34,7 @@ Adding as a submodule:
 
 `git submodule add git@github.com:ciscops/ansible-network-backup.git network-backup`
 
-##Example Playbook
+## Example Playbook
 
 
 ```yaml
@@ -49,7 +48,7 @@ Adding as a submodule:
         network_backup_repository: 'git@github.com:repo/backups.git'
 ```
 
-##License
+## License
 
 
 CISCO SAMPLE CODE LICENSE
