@@ -19,6 +19,8 @@ Currently supports:
 
 - `network_backup_repository`: The git repository that will be use to store the backups.
 - `network_backup_dir`: The directory where the backups will be placed. Default: `"{{ playbook_dir }}/backups"`
+- `git_name`: Set the user's git name when not otherwise specified
+- `git_email`: Set the user's git email when not otherwise specified
 
 ## Dependencies
 
