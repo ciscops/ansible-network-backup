@@ -15,7 +15,7 @@
 - name: Copy the temp to the destination
   copy:
     src: "{{ temp_backup_file }}"
-    dest: "{{ net_backup_file }}"
+    dest: "{{ network_backup_file }}"
   register: copy_result
   delegate_to: localhost
 

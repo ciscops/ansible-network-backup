@@ -1,52 +1,55 @@
-network-config
-=========
+#ansible-network-backup
+
 
 This role backs up the configuration of a network device into a git repository.
 
-The file is backed up to `{{ net_backup_dir }}/{{ inventory_hostname }}.cfg`
+The file is backed up to the directory specified in `network_backup_dir`.  A git repo is used when
+`network_backup_repository` is specified.
 
 
-Requirements
-------------
+##Requirements
+
 
 Currently supports:
 - ios
+- asa
 - nxos
 
-Role Variables
---------------
+##Role Variables
 
-- `network_backup_dir`: The dictory where the backups will be placed.
-- `network_backup_repository`: The git repository that will be use to store the backups
 
-Dependencies
-------------
+- `network_backup_repository`: The git repository that will be use to store the backups.
+- `network_backup_dir`: The directory where the backups will be placed. Default: `"{{ playbook_dir }}/backups"`
+
+##Dependencies
 
 None
 
-Example Playbook
-----------------
+##Cloning
 
-    - hosts: network
-      gather_facts: no
-      tasks:
-        - include_role:
-            name: network-config
-          vars:
-            network_backup_repository: 'git@github.com:ismc/configs.git'
-            net_backup_dir: "{{ lookup('env', 'PWD') }}/backups"
+Adding without the `ansible-` prefix:
 
-The playbook can be run to either backup or check for changes:
+`git clone git@github.com:ciscops/ansible-network-backup.git network-backup`
 
-    ansible-playbook -i hosts net-backup.yml
+Adding as a submodule:
 
-The playbook can be run to display the differences found between the saved config and the running config:
+`git submodule add git@github.com:ciscops/ansible-network-backup.git network-backup`
 
-    ansible-playbook --diff -i hosts net-backup.yml
+##Example Playbook
 
 
+```yaml
+- hosts: network
+  gather_facts: no
+  connection: network_cli
+  tasks:
+    - include_role:
+        name: network-backup
+      vars:
+        network_backup_repository: 'git@github.com:repo/backups.git'
+```
 
-License
--------
+##License
 
-GPL-3.0
+
+CISCO SAMPLE CODE LICENSE
