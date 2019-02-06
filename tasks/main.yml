@@ -65,4 +65,9 @@
     run_once: true
     when: status_results.stdout is search('Changes')
     delegate_to: localhost
+    environment:
+      GIT_COMMITTER_NAME: "{{ git_commiter_name | default(omit) }}"
+      GIT_COMMITTER_EMAIL: "{{ git_commiter_email | default(omit) }}"
+      GIT_AUTHOR_NAME: "{{ git_commiter_name | default(omit) }}"
+      GIT_AUTHOR_EMAIL: "{{ git_commiter_email | default(omit) }}"
   when: network_backup_repository is defined
