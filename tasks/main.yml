@@ -52,6 +52,9 @@
     when: status_results.stdout is search('Changes')
     delegate_to: localhost
     run_once: true
+    environment:
+      GIT_COMMITTER_NAME: "{{ git_commiter_name | default(omit) }}"
+      GIT_COMMITTER_EMAIL: "{{ git_commiter_email | default(omit) }}"
 
   - name: Push the changes
     shell: "git push origin master"
