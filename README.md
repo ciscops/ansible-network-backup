@@ -10,17 +10,19 @@ The file is backed up to the directory specified in `network_backup_dir`.  A git
 
 
 Currently supports:
-- ios
-- asa
-- nxos
+* Cisco IOS XE
+* Cisco NX OS
+* Cisco ASA
 
 ## Role Variables
 
 
-- `network_backup_repository`: The git repository that will be use to store the backups.
-- `network_backup_dir`: The directory where the backups will be placed. Default: `"{{ playbook_dir }}/backups"`
-- `git_name`: Set the user's git name when not otherwise specified
-- `git_email`: Set the user's git email when not otherwise specified
+* `network_backup_repository`: The git repository that will be use to store the backups
+  * _Backups will not be pushed to git when `network_backup_repository` is not specified_
+* `network_backup_dir`: The directory where the backups will be placed. Default: `"{{ playbook_dir }}/backups"`
+  * _`network_backup_dir` will be created when it does not exist_
+* `git_name`: Set the user's git name when not otherwise specified
+* `git_email`: Set the user's git email when not otherwise specified
 
 ## Dependencies
 
