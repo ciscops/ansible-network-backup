@@ -1,16 +1,17 @@
                            CISCO SAMPLE CODE LICENSE
-                                  Version 1.0
-                Copyright (c) 2017 Cisco and/or its affiliates
+                                  Version 1.1
+                Copyright (c) 2019 Cisco and/or its affiliates
 
-   These terms govern this Cisco example or demo source code and its
-   associated documentation (together, the "Sample Code"). By downloading,
-   copying, modifying, compiling, or redistributing the Sample Code, you
-   accept and agree to be bound by the following terms and conditions (the
-   "License"). If you are accepting the License on behalf of an entity, you
-   represent that you have the authority to do so (either you or the entity,
-   "you"). Sample Code is not supported by Cisco TAC and is not tested for
-   quality or performance. This is your only license to the Sample Code and
-   all rights not expressly granted are reserved.
+   These terms govern this Cisco Systems, Inc. ("Cisco"), example or demo
+   source code and its associated documentation (together, the "Sample
+   Code"). By downloading, copying, modifying, compiling, or redistributing
+   the Sample Code, you accept and agree to be bound by the following terms
+   and conditions (the "License"). If you are accepting the License on
+   behalf of an entity, you represent that you have the authority to do so
+   (either you or the entity, "you"). Sample Code is not supported by Cisco
+   TAC and is not tested for quality or performance. This is your only
+   license to the Sample Code and all rights not expressly granted are
+   reserved.
 
    1. LICENSE GRANT: Subject to the terms and conditions of this License,
       Cisco hereby grants to you a perpetual, worldwide, non-exclusive, non-
@@ -27,7 +28,7 @@
       and services are licensed under their own separate terms and you shall
       not use the Sample Code in any way that violates or is inconsistent
       with those terms (for more information, please visit:
-      www.cisco.com/go/terms.
+      www.cisco.com/go/terms).
 
    3. OWNERSHIP: Cisco retains sole and exclusive ownership of the Sample
       Code, including all intellectual property rights therein, except with

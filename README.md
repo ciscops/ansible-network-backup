@@ -1,4 +1,6 @@
-# ansible-network-backup
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/ciscops/ansible-network-backup)
+
+# Ansible Network Backup
 
 This role backs up the configuration of a network device into a git repository.
 
@@ -55,4 +57,4 @@ Adding as a submodule:
 ## License
 
 
-CISCO SAMPLE CODE LICENSE
+[CISCO SAMPLE CODE LICENSE](./LICENSE).
