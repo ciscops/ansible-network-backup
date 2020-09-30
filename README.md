@@ -13,6 +13,7 @@ The file is backed up to the directory specified in `network_backup_dir`.  A git
 
 Currently supports:
 * Cisco IOS XE
+* Cisco IOS XR
 * Cisco NX OS
 * Cisco ASA
 
