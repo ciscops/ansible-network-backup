@@ -59,7 +59,7 @@
       GIT_AUTHOR_EMAIL: "{{ git_email | default(omit) }}"
 
   - name: Push the changes
-    shell: "git push origin master"
+    shell: "git push -u origin --all"
     args:
       chdir: "{{ network_backup_dir }}"
     run_once: true
